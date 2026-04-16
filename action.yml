@@ -1,0 +1,39 @@
+name: PR or GTFO
+description: Responds to trigger commands in issue and PR comments with a random "build a PR or GTFO" style follow-up.
+author: NeuroShepherd
+
+inputs:
+  token:
+    description: GitHub token with permission to create issue comments.
+    required: true
+  commands:
+    description: Comma or newline-separated commands to detect.
+    required: false
+    default: /pr-or-gtfo,/prorgtfo
+  ignore-bots:
+    description: Whether to ignore comments from bot users.
+    required: false
+    default: "true"
+
+outputs:
+  triggered:
+    description: Whether a trigger command was detected in the comment body.
+    value: ${{ steps.pr_or_gtfo.outputs.triggered }}
+  selected-saying:
+    description: The saying that was selected and posted.
+    value: ${{ steps.pr_or_gtfo.outputs.selected-saying }}
+
+runs:
+  using: composite
+  steps:
+    - id: pr_or_gtfo
+      shell: bash
+      run: python3 "${{ github.action_path }}/main.py"
+      env:
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_COMMANDS: ${{ inputs.commands }}
+        INPUT_IGNORE_BOTS: ${{ inputs.ignore-bots }}
+
+branding:
+  icon: message-square
+  color: orange
