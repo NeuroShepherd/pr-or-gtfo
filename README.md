@@ -1,12 +1,10 @@
 # PR or GTFO
 
-A GitHub Action that listens for trigger phrases in issue or pull request comments and posts a randomized follow-up response.
-
-If a comment includes `/pr-or-gtfo` or `/prorgtfo` (customizable), the action can reply with:
+Are you an open-source project maintainer who receives lots of requests for *super important* new features and proposals for definitely fully-baked ideas, but simply don't have the time to address them yourself? Say no more! With this GitHub Action, you can now simply comment `/pr-or-gtfo` or `/prorgtfo` (customizable) on an issue or pull request, and a follow-up comment such as:
 
 > please kindly develop a PR to address this proposal or GTFO out of here
 
-The sayings list is stored directly in `main.py`, and one saying is chosen at random each time.
+will *kindly* inform the requestor that they should help out on this special idea!
 
 ## What It Does
 
@@ -47,20 +45,6 @@ jobs:
             /prorgtfo
 ```
 
-## Customize Sayings
-
-Edit the `SAYINGS` list in `main.py`.
-
-```python
-SAYINGS = [
-    "please kindly develop a PR to address this proposal or GTFO out of here",
-    "proposal acknowledged; please open a PR to move this forward or kindly step aside",
-    "great idea, now turn it into a PR or respectfully GTFO",
-]
-```
-
-Each trigger comment picks one entry at random.
-
 ## Inputs
 
 | Name | Required | Default | Description |
@@ -69,22 +53,9 @@ Each trigger comment picks one entry at random.
 | `commands` | No | `/pr-or-gtfo,/prorgtfo` | Comma or newline-separated trigger commands. |
 | `ignore-bots` | No | `true` | Ignore comments from bot users. |
 
-## Outputs
+## Disclaimer
 
-| Name | Description |
-| --- | --- |
-| `triggered` | `true` when a command match was found and a response was posted. |
-| `selected-saying` | The saying that was selected and posted. |
+*This action **does** actually work as described, but was made as a tongue-in-cheek project mostly to learn a bit more about how to build and release actions to the Actions Marketplace.*
 
-## Notes
+I take no responsibility for angry developers who get hit with a `/pr-or-gtfo`.
 
-- This action does not run by itself; it runs inside your workflow.
-- It posts through the Issues API, which works for both issues and pull requests.
-- For pull requests from forks, ensure your workflow/event setup matches your repository security model.
-
-## Marketplace Prep Checklist
-
-- Add a license file.
-- Tag a release like `v1`.
-- Keep `README.md` and `action.yml` up to date.
-- Optionally configure repository topics and branding.
